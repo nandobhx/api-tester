@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester - Fernando Belém</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="styles/index.css" rel="stylesheet">
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <h1>API Tester</h1>
+        </nav>
+    </header>
+
+    <main>
+        <article class="request">
+            <h2>REQUEST</h2>
+            <form class="request__form">
+                <fieldset class="request__technology">
+                    <legend>Tecnologia</legend>
+                    <select name="technology" class="request__select_technology">
+                        <option value="fetch">Fetch</option>
+                        <option value="xhr">XMLHttpRequest</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend>URL</legend>
+                    <div class="request__url">
+                        <select name="verb" class="request__verb">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="PATCH">PATCH</option>
+                            <option value="DELETE">DELETE</option>
+                        </select>
+                        <input type="url" name="url" class="request__url_input" value="" placeholder="http://" required>
+                    </div>
+                </fieldset>
+                <fieldset class="request__header">
+                    <legend>Header</legend>
+                    <label>Authorization</label>
+                    <input type="text" name="authorization" class="request__authorization" value="" placeholder="Bearer <token>">
+                </fieldset>
+                <fieldset class="request__body">
+                    <legend>Body - JSON</legend>
+                    <textarea name="body" class="request__code_body"></textarea>
+                </fieldset>
+                <section class="request__buttons">
+                    <button type="submit">Enviar</button>
+                    <button type="reset">Limpar</button>
+                </section>
+            </form>
+        </article>
+        <article class="response">
+            <h2>RESPONSE</h2>
+            <form class="response__form">
+                <fieldset class="response__status">
+                    <legend>Status</legend>
+                    <input type="text" name="status" class="response__input_status" readonly value="">
+                </fieldset>
+                <fieldset class="response__body">
+                    <legend>Body</legend>
+                    <textarea name="body" class="response__code_body" readonly></textarea>
+                </fieldset>
+            </form>
+        </article>
+    </main>
+
+    <footer>
+        <section>
+            By Fernando Belém - 2023
+        </section>
+    </footer>
+
+    <section class="backdrop"></section>
+
+    <script src="scripts/index.js"></script>
+</body>
+</html>
