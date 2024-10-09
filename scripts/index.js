@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             config.headers.append("Content-Type", "application/json; charset=utf-8");
         }
         
+        let contentType = "";
         fetch(inputUrl.value, config)
             .then((response) => {
                 inputStatus.value = `${response.status} - ${response.statusText}`;
@@ -54,10 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     inputStatus.classList.add("response__input_status--error");
                 }
+                contentType = response.headers.get("Content-Type") || "";
                 return response.text();
             })
             .then((data) => {
-                responseCodeBody.innerHTML = data;
+                responseCodeBody.innerHTML = formatByContentType(contentType, data);
             })
             .catch((error) => {
                 inputStatus.value = error.message;
@@ -81,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (xhr.readyState == XMLHttpRequest.DONE) {
 
                 let statusText = xhr.statusText;
+                let contentType = xhr.getResponseHeader("Content-Type") || "";
 
                 if (xhr.status >= 200 && xhr.status < 300) {
                     inputStatus.classList.add("response__input_status--sucess");                    
@@ -92,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 inputStatus.value = `${xhr.status} - ${statusText}`;
-                responseCodeBody.innerHTML = xhr.responseText;
+                responseCodeBody.innerHTML = formatByContentType(contentType, xhr.responseText);
                 backdrop.classList.remove("backdrop--show");
             }
 
@@ -113,6 +116,15 @@ document.addEventListener("DOMContentLoaded", () => {
             xhr.send();
         }
 
+    }
+
+    // Function FormatByContentType
+    const formatByContentType = (contentType, body) => {
+        if (contentType.includes("application/json")) {
+            return JSON.stringify(JSON.parse(body), null, 2);
+        } else {
+            return body;
+        }
     }
     
     // Function SendRequest
